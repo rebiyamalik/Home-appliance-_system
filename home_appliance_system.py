@@ -1,34 +1,51 @@
+# home_system.py
+# Modified by: Arfat-Anam (GitHub)
+# Description: Enhanced HomeApplianceSystem with added features and improved formatting.
+
+
 from appliance import Appliance
 
 class HomeApplianceSystem:
     def __init__(self):
+        # Stores appliance objects with their names as keys
         self.appliances = {}
 
     def add_appliance(self, appliance):
-        """Adds an appliance to the system."""
+        """Add a new appliance to the system."""
         if appliance.name not in self.appliances:
             self.appliances[appliance.name] = appliance
-            print(f"{appliance.name} has been added to the system.")
+            print(f"✅ {appliance.name} added to the system.")
         else:
-            print(f"{appliance.name} is already in the system.")
+            print(f"⚠️ {appliance.name} is already in the system.")
+
+    def remove_appliance(self, appliance_name):
+        """Remove an appliance from the system."""
+        if appliance_name in self.appliances:
+            del self.appliances[appliance_name]
+            print(f"❌ {appliance_name} removed from the system.")
+        else:
+            print(f"⚠️ No appliance named '{appliance_name}' found.")
 
     def control_appliance(self, appliance_name, action):
-        """Controls an appliance (turn on/off)."""
+        """Turn an appliance on or off."""
         appliance = self.appliances.get(appliance_name)
-        if appliance:
-            if action == "on":
-                appliance.turn_on()
-            elif action == "off":
-                appliance.turn_off()
-            else:
-                print(f"Invalid action '{action}' for {appliance_name}. Please use 'on' or 'off'.")
+        if not appliance:
+            print(f"❌ Appliance '{appliance_name}' not found.")
+            return
+
+        action = action.lower()
+        if action == "on":
+            appliance.turn_on()
+        elif action == "off":
+            appliance.turn_off()
         else:
-            print(f"Appliance {appliance_name} not found in the system.")
+            print(f"⚠️ Invalid action '{action}'. Use 'on' or 'off'.")
 
     def show_status(self):
-        """Shows the status of all appliances."""
+        """Display the status of all appliances."""
         if not self.appliances:
-            print("No appliances are added to the system.")
-        for appliance in self.appliances.values():
-            print(appliance.status())
-
+            print("📭 No appliances added yet.")
+        else:
+            print("📋 Appliance Status:")
+            for appliance in self.appliances.values():
+                print(appliance.status())
