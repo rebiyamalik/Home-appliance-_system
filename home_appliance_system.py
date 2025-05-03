@@ -17,6 +17,13 @@ class HomeApplianceSystem:
             print(f"✅ {appliance.name} added to the system.")
         else:
             print(f"⚠️ {appliance.name} is already in the system.")
+def rename_appliance(self, old_name, new_name):
+    if old_name in self.appliances and new_name not in self.appliances:
+        self.appliances[new_name] = self.appliances.pop(old_name)
+        self.appliances[new_name].name = new_name
+        print(f"🔁 Renamed '{old_name}' to '{new_name}'.")
+    else:
+        print("⚠️ Cannot rename: either old name doesn't exist or new name is already used.")
 
     def remove_appliance(self, appliance_name):
         """Remove an appliance from the system."""
