@@ -1,8 +1,9 @@
 class Appliance:
-    def __init__(self, name):
-        self.name = name
-        self.state = False  # Appliance is off by default
-
+    def init(self, name):
+if not isinstance(name, str) or not name.strip():
+raise ValueError("Appliance name must be a non-empty string.")
+self.name = name.strip()
+self.state = False # Appliance is off by default
     def turn_on(self):
         if not self.state:
             self.state = True
